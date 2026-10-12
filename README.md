@@ -95,5 +95,10 @@ attack the MCP server. See the homework description for the full rules.
 ### Task 1
 > one paragraph describing your solution, and your results on `public_test`.
 
+I developed a CV verification agent using LangChain and DeepSeek V4 Flash, integrated with the SocialGraph MCP server. The agent retrieves candidates' LinkedIn and Facebook profiles and verifies their identities, employment history, education, and skills against the CV. It distinguishes genuine discrepancies from equivalent wording and returns a reliability score based on the verification results. The agent achieved 7/7 accuracy (100%) on the public_test dataset.
 ### Task 2
 > the attack techniques you used and why you expect them to work.
+
+I tested five adversarial CV versions for Kelly Tsang. The first four approaches—job title inflation, prompt injection, employment date manipulation, and information overload with a false graduation year—all failed, receiving scores of 0.1.
+
+The final version used a PDF parser differential attack. The PDF visually displayed a false graduation year (2015), while an invisible text layer contained the correct year (2016). Since MarkItDown extracted only 2016, the agent compared the extracted information with LinkedIn and incorrectly classified the CV as valid. This attack achieved a score of 0.9 in three consecutive local tests, demonstrating a vulnerability caused by differences between visual PDF content and machine-extracted text.
